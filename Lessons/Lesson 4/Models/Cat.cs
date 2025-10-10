@@ -57,9 +57,17 @@ namespace Lesson_4.Models
         /// </summary>
         public override void Eat()
         {
-            Console.WriteLine($"{Name} eating");
+            Console.WriteLine($"{Name} eating...");
         }
 
+        /// <summary>
+        /// Display name details
+        /// </summary>
+        public void Display()
+        {
+            Console.WriteLine($"{Name} Displaying");
+        }
+        
         #endregion
     }
 }
