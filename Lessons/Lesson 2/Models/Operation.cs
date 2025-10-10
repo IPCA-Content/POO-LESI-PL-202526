@@ -20,7 +20,7 @@ namespace Lesson_2.Models
     [CLSCompliant(true)]
     public class Operation
     {
-        #region Properties
+        #region Public Properties
         /// <summary>
         /// Gets the value of the left operand.
         /// </summary>
@@ -37,18 +37,18 @@ namespace Lesson_2.Models
         public Operator Operator { get; }
         #endregion
 
-        #region Constructors
+        #region Constructor
         /// <summary>
         /// Initializes a new instance of the <see cref="Operation"/> class with two operands and an operator.
         /// </summary>
         /// <param name="left">The value of the left operand.</param>
         /// <param name="right">The value of the right operand.</param>
         /// <param name="operator">The operator to be applied.</param>
-        public Operation(double left, double right, Operator @operator)
+        public Operation(double left, double right, Operator op)
         {
             LeftOperand = left;
             RightOperand = right;
-            Operator = @operator;
+            Operator = op;
         }
 
         /// <summary>
