@@ -63,17 +63,23 @@ public class Cats
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Cat GetById(int id)
+    public Cat? GetById(int id)
     {
-        //return _cats.Find(a => a.ID == id);
-
-        foreach (Cat cat in _cats)
-        {
-            if (cat.ID == id)
-                return cat;
-        }
+        // Option 1: with foreach
+        // foreach (Cat cat in _cats)
+        // {
+        //     if (cat.ID == id) return cat;
+        // }
         
-        return null;
+        // Option 2: with for loop
+        // int counter = _cats.Count;
+        // for (int i = 0; i < counter; i++)
+        // {
+        //     if (_cats[i].ID == id); return _cats[i];
+        // }
+        
+        // Option 3: Find() is a built-in LINQ-style method
+        return _cats.Find(a => a.ID == id);;
     }
 
     /// <summary>
