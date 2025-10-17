@@ -14,14 +14,14 @@ namespace Lesson_4.Models;
 /// Represents cats, derived from the <see cref="Cat"/> class.
 /// </summary>
 [CLSCompliant(true)]
-public class Cats
+public class AnimalCollection<T> where T : Animal
 {
     #region Private properties
     
     /// <summary>
-    /// Cats list
+    /// Animal list
     /// </summary>
-    private List<Cat> _cats;
+    private readonly List<T> _animal;
     #endregion
 
     #region Constructors
@@ -29,9 +29,9 @@ public class Cats
     /// <summary>
     /// Cats Constructor instanciate _cats
     /// </summary>
-    public Cats()
+    public AnimalCollection()
     {
-        _cats = new List<Cat>();
+        _animal = new List<T>();
     }
     #endregion
 
@@ -41,9 +41,22 @@ public class Cats
     /// Add one cat to the list
     /// </summary>
     /// <param name="cat"></param>
-    public void Add(Cat cat)
+    public void Add(T animal)
     {
-        _cats.Add(cat);
+        _animal.Add(animal);
+    }
+
+    public bool Update(T animal)
+    {
+        T existing = _animal.Find(a => a.ID == animal.ID);
+        if (existing == null)
+            return false;
+
+        // Example update (manually copy relevant fields)
+        existing.Name = animal.Name;
+        existing.Age = animal.Age;
+    
+        return true;
     }
 
     /// <summary>
@@ -51,10 +64,10 @@ public class Cats
     /// </summary>
     /// <param name="cat"></param>
     /// <returns></returns>
-    public bool Del(Cat cat)
+    public bool Del(T cat)
     {
-        if(_cats.Contains(cat)) 
-            return _cats.Remove(cat);
+        if(_animal.Contains(cat)) 
+            return _animal.Remove(cat);
         return false;
     }
 
@@ -63,7 +76,7 @@ public class Cats
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Cat? GetById(int id)
+    public T? GetById(int id)
     {
         // Option 1: with foreach
         // foreach (Cat cat in _cats)
@@ -79,7 +92,7 @@ public class Cats
         // }
         
         // Option 3: Find() is a built-in LINQ-style method
-        return _cats.Find(a => a.ID == id);;
+        return _animal.Find(a => a.ID == id);;
     }
 
     /// <summary>
@@ -87,9 +100,9 @@ public class Cats
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    public List<Cat> FilterCats(string name)
+    public List<T> Filter(string name)
     {
-        return _cats.FindAll(a => a.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+        return _animal.FindAll(a => a.Name == name);
     }
 
     /// <summary>
@@ -97,7 +110,7 @@ public class Cats
     /// </summary>
     public void DisplayAll()
     {
-        foreach (Cat cat in _cats)
+        foreach (T cat in _animal)
         {
             cat.Display();
         }
@@ -108,7 +121,7 @@ public class Cats
     /// </summary>
     public void Clear()
     {
-        _cats.Clear();
+        _animal.Clear();
     }
     
     #endregion

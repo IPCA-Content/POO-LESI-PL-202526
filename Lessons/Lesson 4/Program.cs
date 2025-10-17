@@ -27,3 +27,8 @@ Cat returned = cats.GetById(1);
 returned.Eat();
 
 cats.DisplayAll();
+
+// public class AnimalCollection<T> where T : Animal
+// AnimalCollection<Cat> animals = new AnimalCollection<Cat>();
+// animals.Add(cat);
+// animals.Add(cat1);

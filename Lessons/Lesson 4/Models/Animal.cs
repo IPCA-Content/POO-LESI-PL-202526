@@ -71,6 +71,14 @@ namespace Lesson_4.Models
             Console.WriteLine($"{Name} Eating...");
         }
 
+        /// <summary>
+        /// Display name details
+        /// </summary>
+        public void Display()
+        {
+            Console.WriteLine($"{Name} Displaying");
+        }
+        
         #endregion
     }
 }
