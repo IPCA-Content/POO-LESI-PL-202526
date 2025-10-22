@@ -8,9 +8,10 @@
 //    <author>Ernesto Casanova</author>
 //-----------------------------------------------------------------
 
+using DatesUtilities.Providers;
 using Lesson_6.Enums;
 using Lesson_6.Models;
-using DatesUtilities;
+using DateUtilities;
 
 namespace Lesson_6
 {
@@ -79,21 +80,22 @@ namespace Lesson_6
             vet1.ListAppointments();
 
             // -----------------------------
-            // End of program
+            // Example usage of Utilities
             // -----------------------------
-            Console.WriteLine("Press any key to exit...");
-            Console.ReadKey();
-
-            // -----------------------------
-            // Example usage of DatesUtilities
-            // -----------------------------
-            Dates dates = new Dates();
+            SystemDateProvider _dateProvider = new SystemDateProvider();
+            DateUtils dates = new DateUtils(_dateProvider);
             
             // Calculate age from year, month, day
             int age = dates.Age(2025, 12, 10);
 
             // Calculate age from DateOnly struct
             age = dates.Age(new DateOnly(2025, 12, 10));
+            
+            // -----------------------------
+            // End of program
+            // -----------------------------
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
         }
     }
 }
