@@ -8,8 +8,6 @@
 //    <author>Ernesto Casanova</author>
 //-----------------------------------------------------------------
 
-using System;
-
 namespace Lesson_6.Models
 {
     /// <summary>
