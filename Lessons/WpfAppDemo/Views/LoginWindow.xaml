@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="LoginWindow" Height="450" Width="800">
     <Grid>
-        <StackPanel Background="Beige" Width="200px" Height="120px" >
+        <StackPanel Background="Beige" Width="200px" Height="150px" >
             <Label Content="Username"></Label>
             <TextBox Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="Password"></Label>

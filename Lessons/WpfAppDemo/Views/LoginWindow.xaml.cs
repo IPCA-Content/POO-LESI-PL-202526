@@ -8,11 +8,9 @@
 //    <author>Ernesto Casanova</author>
 //-----------------------------------------------------------------
 
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
-using WpfAppDemo.Models.Repositories;
 using WpfAppDemo.ViewModels;
-using WpfAppDemo.ViewModels.Services;
-using WpfAppDemo.Views.Factories;
 
 namespace WpfAppDemo.Views
 {
@@ -38,17 +36,9 @@ namespace WpfAppDemo.Views
         {
             InitializeComponent();
 
-            // Create dependencies
-            ViewFactory viewFactory = new ViewFactory();
-            UserRepository userRepository = new UserRepository();
-            AuthenticationService authService = new AuthenticationService(userRepository);
-
             // Initialize ViewModel
-            _viewModel = new LoginViewModel(authService, viewFactory)
-            {
-                HideWindowAction = Hide
-            };
-
+            _viewModel = App.ServiceProvider.GetRequiredService<LoginViewModel>();
+            _viewModel.HideWindowAction = Hide;
             // Set DataContext for data binding
             DataContext = _viewModel;
         }

@@ -33,7 +33,7 @@ namespace WpfAppDemo.Views.Factories
                 // If MainWindow requires parameters, they can be passed like:
                 // ViewType.Main => new MainWindow(parameter as string)
                 ViewType.Main => new MainWindow(),
-
+    
                 _ => throw new NotImplementedException(
                     $"ViewFactory does not support view type: {type}")
             };
