@@ -19,7 +19,7 @@ namespace WpfAppDemo.ViewModels
     /// <summary>
     /// ViewModel for login functionality. Handles authentication and navigation.
     /// </summary>
-    public class LoginViewModel : BaseViewModel
+    public class RegistryViewModel : BaseViewModel
     {
         #region Fields
 
@@ -27,6 +27,7 @@ namespace WpfAppDemo.ViewModels
         private readonly IViewFactory _viewFactory;
         private string _username = string.Empty;
         private string _password = string.Empty;
+        private string _passwordRepeat = string.Empty;
 
         #endregion
 
@@ -36,11 +37,6 @@ namespace WpfAppDemo.ViewModels
         /// Action to hide the associated window. Typically set by the view.
         /// </summary>
         public Action? HideWindowAction { get; set; }
-
-        /// <summary>
-        /// Command for executing the login action.
-        /// </summary>
-        public ICommand LoginCommand { get; }
 
         /// <summary>
         /// Command for executing the registry action.
@@ -79,6 +75,22 @@ namespace WpfAppDemo.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the repeat password entered by the user.
+        /// </summary>
+        public string PasswordRepeat
+        {
+            get => _passwordRepeat;
+            set
+            {
+                if (_passwordRepeat != value)
+                {
+                    _passwordRepeat = value;
+                    OnPropertyChanged(nameof(PasswordRepeat));
+                }
+            }
+        }
+
         #endregion
 
         #region Constructors
@@ -88,12 +100,11 @@ namespace WpfAppDemo.ViewModels
         /// </summary>
         /// <param name="authenticationService">The authentication service to validate users.</param>
         /// <param name="viewFactory">The factory to create views for navigation.</param>
-        public LoginViewModel(IAuthenticationService authenticationService, IViewFactory viewFactory)
+        public RegistryViewModel(IAuthenticationService authenticationService, IViewFactory viewFactory)
         {
             _viewFactory = viewFactory ?? throw new ArgumentNullException(nameof(viewFactory));
             _authenticationService = authenticationService ?? throw new ArgumentNullException(nameof(authenticationService));
 
-            LoginCommand = new ViewModelCommand(ExecuteLoginCommand);
             RegistryCommand = new ViewModelCommand(ExecuteRegistryCommand);
         }
 
@@ -105,11 +116,11 @@ namespace WpfAppDemo.ViewModels
         /// Executes the login command, validating credentials and navigating to the main view if successful.
         /// </summary>
         /// <param name="parameter">Optional command parameter (not used).</param>
-        private void ExecuteLoginCommand(object parameter)
+        private void ExecuteRegistryCommand(object parameter)
         {
-            if (_authenticationService.UserExists(Username, Password))
+            if (_authenticationService.CreateUser(Username, Password, PasswordRepeat))
             {
-                Window window = _viewFactory.CreateView(ViewType.Main);
+                Window window = _viewFactory.CreateView(ViewType.Login);
                 HideWindowAction?.Invoke();
                 window.Show();
             }
@@ -117,13 +128,6 @@ namespace WpfAppDemo.ViewModels
             {
                 MessageBox.Show("Invalid username or password.", "Login Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-        }
-
-        private void ExecuteRegistryCommand(object param)
-        {
-            Window window = _viewFactory.CreateView(ViewType.Registry);
-            HideWindowAction?.Invoke();
-            window.Show();
         }
 
         #endregion

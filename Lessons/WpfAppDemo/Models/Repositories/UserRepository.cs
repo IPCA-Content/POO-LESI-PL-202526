@@ -54,6 +54,64 @@ namespace WpfAppDemo.Models.Repositories
         /// <returns>The <see cref="User"/> if found; otherwise, <c>null</c>.</returns>
         public User? GetUserByUsername(string username)
         {
+            return GetUserUsername(username);
+        }
+
+        /// <summary>
+        /// Create User
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public bool CreateUser(string username, string password)
+        {
+            User? user = GetUserUsername(username);
+
+            if (user == null)
+            {
+                List<User> users = AppendUser(new()
+                {
+                    Username = username,
+                    Password = password
+                });
+
+                return SaveUser(users);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Append User
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        private List<User> AppendUser(User user)
+        {
+            List<User> users = LoadUsers();
+            users.Add(user);
+            return users;
+        }
+
+        /// <summary>
+        /// Save User
+        /// </summary>
+        /// <param name="users"></param>
+        /// <returns></returns>
+        private bool SaveUser(List<User> users)
+        {
+            JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
+            string jsonString = JsonSerializer.Serialize(users, options);
+            File.WriteAllText(_usersFile, jsonString);
+            return true;
+        }
+
+        /// <summary>
+        /// Get User By Username
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        private User? GetUserUsername(string username)
+        {
             if (string.IsNullOrEmpty(username))
             {
                 return null;

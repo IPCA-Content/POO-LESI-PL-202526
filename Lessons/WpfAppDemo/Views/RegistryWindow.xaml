@@ -1,22 +1,23 @@
-﻿<Window x:Class="WpfAppDemo.Views.LoginWindow"
+﻿<Window x:Class="WpfAppDemo.Views.RegistryWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfAppDemo.Views"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="450" Width="800">
+        Title="RegistryWindow" Height="450" Width="800">
     <Grid>
         <StackPanel Background="Beige" Width="200px" Height="150px" >
             <Label Content="Username"></Label>
             <TextBox Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="Password"></Label>
             <TextBox Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="Repeat Password"></Label>
 
-            <Button Content="Login" Command="{Binding LoginCommand}" CommandParameter="{Binding Username}" />
+            <TextBox Text="{Binding PasswordRepeat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Button Content="Registry" Command="{Binding RegistryCommand}"/>
+            <Button Content="Registry" Command="{Binding RegistryCommand}" />
 
-       </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>

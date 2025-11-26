@@ -26,6 +26,14 @@ namespace WpfAppDemo.Models.Repositories.Interfaces
         /// <returns>The <see cref="User"/> if found; otherwise, <c>null</c>.</returns>
         User? GetUserByUsername(string username);
 
+        /// <summary>
+        /// Create a new user
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        bool CreateUser(string username, string password);
+
         #endregion
     }
 }

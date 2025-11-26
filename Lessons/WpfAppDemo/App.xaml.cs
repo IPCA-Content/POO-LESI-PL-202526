@@ -21,6 +21,7 @@ namespace WpfAppDemo
         {
             ServiceProvider = new ServiceCollection()
                   .AddSingleton<LoginViewModel>()
+                  .AddSingleton<RegistryViewModel>()
                   .AddSingleton<IViewFactory, ViewFactory>()
                   .AddSingleton<IUserRepository, UserRepository>()
                   .AddSingleton<IAuthenticationService, AuthenticationService>()

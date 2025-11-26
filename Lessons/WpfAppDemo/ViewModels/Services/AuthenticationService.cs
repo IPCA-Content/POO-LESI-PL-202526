@@ -68,6 +68,22 @@ namespace WpfAppDemo.ViewModels.Services
             return user.Password == password;
         }
 
+        public bool CreateUser(string username, string password, string passwordRepeat)
+        {
+            // Return false if username or password is null or empty
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(passwordRepeat))
+            {
+                return false;
+            }
+
+            if (password == passwordRepeat)
+            {
+                return _userRepository.CreateUser(username, password);
+            }
+
+            return false;
+        }
+
         #endregion
     }
 }

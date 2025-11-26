@@ -80,6 +80,16 @@ namespace WpfAppDemoTests.Services
             Assert.IsFalse(result, "UserExists should return false when the user does not exist.");
         }
 
+        [Test]
+        public void CreateUser_EmptyCredentials_ReturnsFalse()
+        {
+            // Act
+            bool result = _authService.CreateUser("", "", "");
+
+            // Assert
+            Assert.IsFalse(result, "CreateUser should return false when credentials are empty.");
+        }
+
         private void SetupUserMock(User? user, string username)
         {
             _mockUserRepository.Setup(repo => repo.GetUserByUsername(username)).Returns(user);

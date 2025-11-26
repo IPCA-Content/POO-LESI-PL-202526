@@ -25,6 +25,15 @@ namespace WpfAppDemo.ViewModels.Interfaces
         /// <returns><c>true</c> if the user exists and credentials are correct; otherwise, <c>false</c>.</returns>
         bool UserExists(string username, string password);
 
+        /// <summary>
+        /// Creates new user check if exists with the given username and password and passwordRepeat.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="passwordRepeat"></param>
+        /// <returns></returns>
+        bool CreateUser(string username, string password, string passwordRepeat);
+
         #endregion
     }
 }

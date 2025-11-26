@@ -27,6 +27,11 @@ namespace WpfAppDemo.Views.Enums
         /// </summary>
         Main,
 
+        /// <summary>
+        /// Represents the registry application view.
+        /// </summary>
+        Registry,
+
         // TODO: Add more view types here as needed.
 
         #endregion
