@@ -20,12 +20,6 @@ namespace WpfAppDemo.Views
     /// </summary>
     public partial class LoginWindow : Window
     {
-        #region Fields
-
-        private readonly LoginViewModel _viewModel;
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -35,12 +29,6 @@ namespace WpfAppDemo.Views
         public LoginWindow()
         {
             InitializeComponent();
-
-            // Initialize ViewModel
-            _viewModel = App.ServiceProvider.GetRequiredService<LoginViewModel>();
-            _viewModel.HideWindowAction = Hide;
-            // Set DataContext for data binding
-            DataContext = _viewModel;
         }
 
         #endregion

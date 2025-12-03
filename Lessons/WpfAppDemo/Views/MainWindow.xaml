@@ -6,6 +6,21 @@
         xmlns:local="clr-namespace:WpfAppDemo"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Margin="10">
+        <DataGrid ItemsSource="{Binding Employees}" Name="dgSimple">
+            <!--<DataGrid.Columns>
+                --><!-- EDIT BUTTON COLUMN --><!--
+                <DataGridTemplateColumn Header="Actions">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Edit"
+                            Padding="6 2"
+                            Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                            CommandParameter="{Binding}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>-->
+        </DataGrid>
     </Grid>
 </Window>

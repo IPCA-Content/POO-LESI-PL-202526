@@ -10,6 +10,7 @@
 
 using System.Windows;
 using System.Windows.Input;
+using WpfAppDemo.ViewModels.Commands;
 using WpfAppDemo.ViewModels.Interfaces;
 using WpfAppDemo.Views.Enums;
 using WpfAppDemo.Views.Interfaces;
@@ -109,9 +110,9 @@ namespace WpfAppDemo.ViewModels
         {
             if (_authenticationService.UserExists(Username, Password))
             {
-                Window window = _viewFactory.CreateView(ViewType.Main);
+                Window window = _viewFactory.ShowDialog(ViewType.Main);
                 HideWindowAction?.Invoke();
-                window.Show();
+                window?.Show();
             }
             else
             {
@@ -121,9 +122,9 @@ namespace WpfAppDemo.ViewModels
 
         private void ExecuteRegistryCommand(object param)
         {
-            Window window = _viewFactory.CreateView(ViewType.Registry);
+            Window window = _viewFactory.ShowDialog(ViewType.Registry);
             HideWindowAction?.Invoke();
-            window.Show();
+            window?.Show();
         }
 
         #endregion

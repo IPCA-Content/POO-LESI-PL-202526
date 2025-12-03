@@ -8,7 +8,6 @@
 //    <author>Ernesto Casanova</author>
 //-----------------------------------------------------------------
 
-using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using WpfAppDemo.ViewModels;
 
@@ -20,12 +19,6 @@ namespace WpfAppDemo.Views
     /// </summary>
     public partial class RegistryWindow : Window
     {
-        #region Fields
-
-        private readonly RegistryViewModel _viewModel;
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -35,12 +28,6 @@ namespace WpfAppDemo.Views
         public RegistryWindow()
         {
             InitializeComponent();
-
-            // Initialize ViewModel
-            _viewModel = App.ServiceProvider.GetRequiredService<RegistryViewModel>();
-            _viewModel.HideWindowAction = Hide;
-            // Set DataContext for data binding
-            DataContext = _viewModel;
         }
 
         #endregion

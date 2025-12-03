@@ -32,6 +32,11 @@ namespace WpfAppDemo.Views.Enums
         /// </summary>
         Registry,
 
+        /// <summary>
+        /// Represents the create employee application view.
+        /// </summary>
+        EditEmployee,
+
         // TODO: Add more view types here as needed.
 
         #endregion

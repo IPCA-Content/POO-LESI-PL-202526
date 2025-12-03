@@ -1,6 +1,8 @@
-﻿using System.Windows;
-using WpfAppDemo.Views.Interfaces;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Windows;
+using WpfAppDemo.ViewModels;
 using WpfAppDemo.Views.Enums;
+using WpfAppDemo.Views.Interfaces;
 
 namespace WpfAppDemo.Views.Factories
 {
@@ -10,6 +12,13 @@ namespace WpfAppDemo.Views.Factories
     /// </summary>
     public class ViewFactory : IViewFactory
     {
+        private readonly IServiceProvider _serviceProvider;
+
+        public ViewFactory(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
+
         #region Public Methods
 
         /// <summary>
@@ -24,22 +33,28 @@ namespace WpfAppDemo.Views.Factories
         /// <exception cref="NotImplementedException">
         /// Thrown when the specified <see cref="ViewType"/> does not have a corresponding Window.
         /// </exception>
-        public Window CreateView(ViewType type, object? parameter = null)
+        public Window ShowDialog(ViewType type, object? parameter = null)
         {
             Window window = type switch
             {
-                ViewType.Login => new LoginWindow(),
-
-                // If MainWindow requires parameters, they can be passed like:
-                // ViewType.Main => new MainWindow(parameter as string)
-                ViewType.Main => new MainWindow(),
-                ViewType.Registry => new RegistryWindow(),
-
-                _ => throw new NotImplementedException(
-                    $"ViewFactory does not support view type: {type}")
+                ViewType.Login => _serviceProvider.GetRequiredService<LoginWindow>(),
+                ViewType.Main => _serviceProvider.GetRequiredService<MainWindow>(),
+                ViewType.Registry => _serviceProvider.GetRequiredService<RegistryWindow>(),
+                ViewType.EditEmployee => _serviceProvider.GetRequiredService<EditEmployeeWindow>(),
+                _ => throw new NotImplementedException()
             };
 
-            // Ensures all windows open center on the screen by default
+            object viewModel = type switch
+            {
+                ViewType.Login => _serviceProvider.GetRequiredService<LoginViewModel>(),
+                ViewType.Main => _serviceProvider.GetRequiredService<MainViewModel>(),
+                ViewType.Registry => _serviceProvider.GetRequiredService<RegistryViewModel>(),
+                ViewType.EditEmployee => ActivatorUtilities.CreateInstance<EditEmployeeViewModel>(_serviceProvider, parameter!),
+
+                _ => throw new NotImplementedException()
+            };
+
+            window.DataContext = viewModel;
             window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
             return window;

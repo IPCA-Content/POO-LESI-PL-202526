@@ -10,6 +10,7 @@
 
 using System.Windows;
 using System.Windows.Input;
+using WpfAppDemo.ViewModels.Commands;
 using WpfAppDemo.ViewModels.Interfaces;
 using WpfAppDemo.Views.Enums;
 using WpfAppDemo.Views.Interfaces;
@@ -120,7 +121,7 @@ namespace WpfAppDemo.ViewModels
         {
             if (_authenticationService.CreateUser(Username, Password, PasswordRepeat))
             {
-                Window window = _viewFactory.CreateView(ViewType.Login);
+                Window window = _viewFactory.ShowDialog(ViewType.Login);
                 HideWindowAction?.Invoke();
                 window.Show();
             }
