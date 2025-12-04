@@ -26,7 +26,7 @@ namespace WpfAppDemo.Views.Interfaces
         /// <param name="type">The type of view to create.</param>
         /// <param name="parameter">Optional parameter to pass to the view.</param>
         /// <returns>A new instance of a <see cref="Window"/> corresponding to the specified view type.</returns>
-        Window CreateView(ViewType type, object? parameter = null);
+        Window ShowDialog(ViewType type, object? parameter = null);
 
         #endregion
     }

@@ -40,7 +40,7 @@ namespace WpfAppDemo.Views.Factories
                 ViewType.Login => _serviceProvider.GetRequiredService<LoginWindow>(),
                 ViewType.Main => _serviceProvider.GetRequiredService<MainWindow>(),
                 ViewType.Registry => _serviceProvider.GetRequiredService<RegistryWindow>(),
-                ViewType.EditEmployee => _serviceProvider.GetRequiredService<EditEmployeeWindow>(),
+                // ViewType.EditEmployee => _serviceProvider.GetRequiredService<EditEmployeeWindow>(),
                 _ => throw new NotImplementedException()
             };
 
@@ -49,7 +49,7 @@ namespace WpfAppDemo.Views.Factories
                 ViewType.Login => _serviceProvider.GetRequiredService<LoginViewModel>(),
                 ViewType.Main => _serviceProvider.GetRequiredService<MainViewModel>(),
                 ViewType.Registry => _serviceProvider.GetRequiredService<RegistryViewModel>(),
-                ViewType.EditEmployee => ActivatorUtilities.CreateInstance<EditEmployeeViewModel>(_serviceProvider, parameter!),
+                // ViewType.EditEmployee => ActivatorUtilities.CreateInstance<EditEmployeeViewModel>(_serviceProvider, parameter!),
 
                 _ => throw new NotImplementedException()
             };
