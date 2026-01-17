@@ -12,8 +12,10 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using WpfAppDemo.Models.Repositories.Interfaces;
+using WpfAppDemo.View.Interfaces;
 using WpfAppDemo.ViewModels.Commands;
 using WpfAppDemo.ViewModels.Models;
+using WpfAppDemo.ViewModels.Services;
 using WpfAppDemo.Views.Enums;
 using WpfAppDemo.Views.Interfaces;
 
@@ -27,7 +29,8 @@ namespace WpfAppDemo.ViewModels
         #region Fields
 
         private readonly IViewFactory _viewFactory;
-        private readonly IEmployeeRepository _repository;
+        private readonly IWindowService _windowService;
+        private readonly IEmployeeRepository _employeeRepository;
 
         #endregion
 
@@ -43,7 +46,14 @@ namespace WpfAppDemo.ViewModels
         /// </summary>
         public ICommand CreateCommand { get; }
 
+        /// <summary>
+        /// Command for executing the edit employee action (open window).
+        /// </summary>
         public ICommand EditCommand { get; }
+
+        /// <summary>
+        /// Command for executing the edit employee action (open window).
+        /// </summary>
 
         public ObservableCollection<Employee> Employees { get; set; }
 
@@ -55,18 +65,15 @@ namespace WpfAppDemo.ViewModels
         /// Initializes a new instance of <see cref="MainViewModel"/>.
         /// </summary>
         /// <param name="viewFactory">The factory to create views for navigation.</param>
-        public MainViewModel(IViewFactory viewFactory, IEmployeeRepository repository)
+        public MainViewModel(IViewFactory viewFactory, IWindowService windowService, IEmployeeRepository repository)
         {
-
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _employeeRepository = repository ?? throw new ArgumentNullException(nameof(repository));
             _viewFactory = viewFactory ?? throw new ArgumentNullException(nameof(viewFactory));
+            _windowService = windowService ?? throw new ArgumentNullException(nameof(windowService));
+            
+            IEnumerable<Employee> _employees = _employeeRepository.GetAll();
 
-            // CreateCommand = new ViewModelCommand(ExecuteLoginCommand);
-
-            Employees = new ObservableCollection<Employee>();
-            Employees.Add(new Employee() { Id = 1, Name = "John Doe", Birthday = new DateTime(1971, 7, 23) });
-            Employees.Add(new Employee() { Id = 2, Name = "Jane Doe", Birthday = new DateTime(1974, 1, 17) });
-            Employees.Add(new Employee() { Id = 3, Name = "Sammy Doe", Birthday = new DateTime(1991, 9, 2) });
+            Employees = new ObservableCollection<Employee>(_employees);
 
             EditCommand = new RelayCommand<Employee>(EditEmployee);
         }
@@ -90,7 +97,8 @@ namespace WpfAppDemo.ViewModels
             // Debug.WriteLine($"Editing {employee.Name}");
 
             Window window = _viewFactory.ShowDialog(ViewType.EditEmployee, employee);
-            HideWindowAction?.Invoke();
+            //HideWindowAction?.Invoke();
+            _windowService.CloseWindow(this);
             window?.Show();
         }
 

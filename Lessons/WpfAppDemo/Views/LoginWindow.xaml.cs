@@ -8,7 +8,6 @@
 //    <author>Ernesto Casanova</author>
 //-----------------------------------------------------------------
 
-using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using WpfAppDemo.ViewModels;
 
@@ -16,7 +15,6 @@ namespace WpfAppDemo.Views
 {
     /// <summary>
     /// Interaction logic for <c>LoginWindow.xaml</c>.
-    /// This window handles user login and binds to <see cref="LoginViewModel"/>.
     /// </summary>
     public partial class LoginWindow : Window
     {
